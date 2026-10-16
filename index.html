@@ -7,6 +7,7 @@ const KEY='chicken-farm-mvp-v1',DAY=86400000;
 let state;try{state=JSON.parse(localStorage.getItem(KEY))}catch(e){}
 if(!state||!Array.isArray(state.eggs)||!Array.isArray(state.birds))state={coins:1000,land:1,eggs:[],birds:[]};
 if(!state.bonusV2){state.coins=(Number(state.coins)||0)+10000;state.birds.push(...Array.from({length:3},()=>({collectedAt:Date.now()})));state.bonusV2=true;localStorage.setItem(KEY,JSON.stringify(state))}
+if(!state.gift50kEggs100kCoins){state.coins=(Number(state.coins)||0)+100000;state.storedEggs=Array.isArray(state.storedEggs)?state.storedEggs:[];state.storedEggs.push(...Array.from({length:50000},()=>({createdAt:Date.now()})));state.gift50kEggs100kCoins=true;localStorage.setItem(KEY,JSON.stringify(state))}
 if(!Number.isFinite(state.feed))state.feed=0;if(!Number.isFinite(state.feedSpent))state.feedSpent=0;if(!state.feedStarterV3){state.feed+=20;state.feedStarterV3=true;localStorage.setItem(KEY,JSON.stringify(state))}for(const b of state.birds){if(!Number.isFinite(b.fedAt))b.fedAt=0}
 function save(){localStorage.setItem(KEY,JSON.stringify(state))}
 function say(s){document.getElementById('msg').textContent=s}
